@@ -11,12 +11,12 @@ import PostItemComponent from "../components/PostItemComponent";
 import styles from "../styles/Home.module.scss";
 import Pagination from "@mui/material/Pagination";
 import { IPost } from "../models/Post";
-import { getListPost } from "../services/PostsService";
+import { getListPost, PER_PAGE } from "../services/PostsService";
 import { IPagination, ResponseListPost } from "../models/ResponseListPost";
 import { ParsedUrlQuery } from "querystring";
 import _ from "lodash";
-import { PER_PAGE } from "./constants";
 import { useRouter } from "next/router";
+import SearchComponent from "../components/SearchComponent";
 
 type Props = {
   posts: IPost[];
@@ -41,6 +41,11 @@ function PageContent({
     console.log("handleChangePager >>>>> ", page);
     router.push(`/${page}`);
   };
+
+  function updateSearchKeyword(keyword: string) {
+    console.log("updateSarchKeyword >>> ", keyword);
+    router.push(`/search?keyword=${keyword}`);
+  }
 
   return (
     <Layout>
@@ -68,7 +73,9 @@ function PageContent({
               </div>
             )}
           </div>
-          <div className={styles.rightContainer}>rightContainer</div>
+          <div className={styles.rightContainer}>
+            <SearchComponent defaultKeyword="" doSearch={updateSearchKeyword} />
+          </div>
         </div>
       </div>
     </Layout>
@@ -106,6 +113,7 @@ export const getStaticProps: GetStaticProps<Props, IParams> = async (
       posts: resListPost.listPost,
       pagination: resListPost.pagination,
     },
+    revalidate: 60,
   };
 };
 

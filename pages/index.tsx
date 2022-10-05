@@ -6,9 +6,8 @@ import PostItemComponent from "../components/PostItemComponent";
 import styles from "../styles/Home.module.scss";
 import Pagination from "@mui/material/Pagination";
 import { IPost } from "../models/Post";
-import { getListPost } from "../services/PostsService";
+import { getListPost, PER_PAGE } from "../services/PostsService";
 import { ResponseListPost } from "../models/ResponseListPost";
-import { PER_PAGE } from "./constants";
 import SearchComponent from "../components/SearchComponent";
 import { useRouter } from "next/router";
 

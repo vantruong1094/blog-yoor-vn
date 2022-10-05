@@ -34,8 +34,11 @@ function SearchPage() {
   }, [keyword]);
 
   function updateSearchKeyword(keyW: string) {
-    const _keyword = !_.isEmpty(keyword) && _.isEmpty(keyW) ? keyword : keyW;
-    router.push(`/search?keyword=${_keyword}`);
+    if (_.isEmpty(keyW)) {
+      router.push(`/search`);
+    } else {
+      router.push(`/search?keyword=${keyW}`);
+    }
   }
 
   return (

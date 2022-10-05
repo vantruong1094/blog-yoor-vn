@@ -7,7 +7,7 @@ type Props = {
 };
 
 function SearchComponent({ defaultKeyword, doSearch }: Props) {
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState(defaultKeyword);
 
   function handleSubmit() {
     doSearch(inputText);
@@ -17,7 +17,8 @@ function SearchComponent({ defaultKeyword, doSearch }: Props) {
     <div className={styles.searchContainer}>
       <input
         type={"text"}
-        defaultValue={defaultKeyword}
+        //defaultValue={defaultKeyword}
+        value={inputText}
         placeholder="ブログ内検索"
         className={styles.searchText}
         onChange={(e) => setInputText(e.target.value)}

@@ -6,6 +6,8 @@ const PROJECT_SUBDOMAIN = "truongcv-yoor";
 const PROJECT_ACCESS_TOKEN = "AnmFzheET4Zp5qJ6xjmxkWZh";
 const PROJECT_DRAFT_TOKEN = "gyPg3zBP86hhtkwBDm69hZWx";
 
+export const PER_PAGE = 3;
+
 const client = new HacoCmsClient(
   `https://${PROJECT_SUBDOMAIN}.hacocms.com`,
   PROJECT_ACCESS_TOKEN,
