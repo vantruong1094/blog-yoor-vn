@@ -1,0 +1,25 @@
+.rootContainer {
+  padding: 2rem 8rem;
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 1000px;
+    display: flex;
+    gap: 4rem;
+  }
+}
+
+.leftContainer {
+  flex: 60%;
+
+  .paginationContainer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20rem;
+  }
+}
+
+.rightContainer {
+  flex: 40%;
+}
