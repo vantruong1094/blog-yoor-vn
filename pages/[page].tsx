@@ -1,9 +1,4 @@
-import type {
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-  GetStaticProps,
-  NextPage,
-} from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../components/Layout";
@@ -27,10 +22,7 @@ interface IParams extends ParsedUrlQuery {
   page: string;
 }
 
-function PageContent({
-  posts,
-  pagination,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+function PageContent({ posts, pagination }: Props) {
   const totalPages = Math.ceil(pagination.total / pagination.limit);
   const router = useRouter();
 
@@ -89,7 +81,7 @@ function PageContent({
   );
 }
 
-export const getStaticProps: GetStaticProps<Props, IParams> = async (
+export const getServerSideProps: GetServerSideProps<Props, IParams> = async (
   context
 ) => {
   const page = Number((context.params as IParams).page);
@@ -120,21 +112,20 @@ export const getStaticProps: GetStaticProps<Props, IParams> = async (
       posts: resListPost.listPost,
       pagination: resListPost.pagination,
     },
-    revalidate: 60,
   };
 };
 
-export const getStaticPaths = async () => {
-  const paths = Array.from({ length: 5 }).map((_, index) => ({
-    params: {
-      page: `${index + 1}`,
-    },
-  }));
-  console.log("paths >>>>> ", paths);
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+// export const getStaticPaths = async () => {
+//   const paths = Array.from({ length: 5 }).map((_, index) => ({
+//     params: {
+//       page: `${index + 1}`,
+//     },
+//   }));
+//   console.log("paths >>>>> ", paths);
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
 
 export default PageContent;

@@ -40,3 +40,17 @@ pre {
     background: black;
   }
 }
+
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: #11b5f5;
+  color: white;
+  border: none;
+}
+
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
+  background-color: #68caf1;
+}
+
+.css-wjh20t-MuiPagination-ul {
+  gap: 5px;
+}

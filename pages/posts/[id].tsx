@@ -1,4 +1,9 @@
-import type { InferGetStaticPropsType, NextPage, GetStaticProps } from "next";
+import type {
+  InferGetStaticPropsType,
+  NextPage,
+  GetStaticProps,
+  GetServerSideProps,
+} from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../../components/Layout";
@@ -60,16 +65,16 @@ function PostDetailPage({ post, relativePosts }: Props) {
   );
 }
 
-export const getStaticPaths = async () => {
-  const paths = await getPostIds();
+// export const getStaticPaths = async () => {
+//   const paths = await getPostIds();
 
-  return {
-    paths,
-    fallback: false,
-  };
-};
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps<Props, IParams> = async (
+export const getServerSideProps: GetServerSideProps<Props, IParams> = async (
   context
 ) => {
   const params = context.params as IParams;
