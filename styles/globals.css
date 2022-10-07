@@ -41,13 +41,13 @@ pre {
   }
 }
 
-.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+.MuiPagination-root button.Mui-selected {
   background-color: #11b5f5;
   color: white;
   border: none;
 }
 
-.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
+.MuiPagination-root button.Mui-selected:hover {
   background-color: #68caf1;
 }
 
