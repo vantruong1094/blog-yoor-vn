@@ -41,6 +41,10 @@ function SearchPage() {
     }
   }
 
+  function redrectDetailPage(id: string) {
+    router.push(`/posts/${id}`);
+  }
+
   return (
     <Layout>
       <div className={styles.rootContainer}>
@@ -53,7 +57,10 @@ function SearchPage() {
             <div>
               {listPost.map((post, index) => (
                 <div key={`post-${index}`}>
-                  <PostItemComponent post={post} redrectDetail={() => {}} />
+                  <PostItemComponent
+                    post={post}
+                    redrectDetail={redrectDetailPage}
+                  />
                 </div>
               ))}
             </div>
