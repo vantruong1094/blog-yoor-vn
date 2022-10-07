@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../../components/Layout";
 import PostItemComponent from "../../components/PostItemComponent";
 import styles from "../../styles/Home.module.scss";
-import Pagination from "@mui/material/Pagination";
 import { IPost } from "../../models/Post";
-import { getListPost, getListPostHaco } from "../../services/PostsService";
-import { ResponseListPost } from "../../models/ResponseListPost";
+import { getListPostHaco } from "../../services/PostsService";
 import { useRouter } from "next/router";
 import SearchComponent from "../../components/SearchComponent";
-import { stringify } from "query-string";
 import _ from "lodash";
 
 function SearchPage() {
@@ -25,7 +21,11 @@ function SearchPage() {
   useEffect(() => {
     async function fetchListPost() {
       console.log("useEffect keyword >>>> ", keyword);
-      const posts: IPost[] = await getListPostHaco(keyword);
+      const posts: IPost[] = await getListPostHaco({
+        keyword: keyword,
+        limit: 1000,
+        category: null,
+      });
       console.log("response >>> ", posts);
       setListPost(posts);
     }
@@ -46,10 +46,14 @@ function SearchPage() {
       <div className={styles.rootContainer}>
         <div className={styles.container}>
           <div className={styles.leftContainer}>
+            <div className={styles.resultSearchContainer}>
+              <span>&quot;{keyword}&quot;</span>
+              の検索結果を表示しています
+            </div>
             <div>
               {listPost.map((post, index) => (
                 <div key={`post-${index}`}>
-                  <PostItemComponent post={post} />
+                  <PostItemComponent post={post} redrectDetail={() => {}} />
                 </div>
               ))}
             </div>
@@ -65,20 +69,5 @@ function SearchPage() {
     </Layout>
   );
 }
-
-// export const getStaticProps = async ({ context }: any) => {
-//   console.log("context >>>> ", context.query);
-//   const response = await getListPost(1000, 0);
-//   const resListPost: ResponseListPost = {
-//     pagination: response.meta,
-//     listPost: response.data,
-//   };
-//   console.log(" pagination >>> ", JSON.stringify(resListPost.pagination));
-//   return {
-//     props: {
-//       posts: resListPost.listPost,
-//     },
-//   };
-// };
 
 export default SearchPage;

@@ -1,6 +1,7 @@
 import { ApiContent, HacoCmsClient } from "hacocms-js-sdk";
 import { ResponseListPost } from "../models/ResponseListPost";
 import axios from "axios";
+import _ from "lodash";
 
 const PROJECT_SUBDOMAIN = "truongcv-yoor";
 const PROJECT_ACCESS_TOKEN = "AnmFzheET4Zp5qJ6xjmxkWZh";
@@ -24,10 +25,12 @@ class PostContent extends ApiContent {
   constructor(json) {
     super(json);
 
-    this.category = json.category;
+    this.subContent = json.subContent;
     this.title = json.title;
     this.content = json.content;
     this.urlImage = json.urlImage;
+    this.updatedAt = json.updatedAt;
+    this.category = json.category;
   }
 }
 
@@ -37,6 +40,7 @@ export const getListPost = async (limit, offset) => {
       params: {
         limit: limit,
         offset: offset,
+        s: "-updatedAt",
       },
     });
 
@@ -46,12 +50,14 @@ export const getListPost = async (limit, offset) => {
   }
 };
 
-export const getListPostHaco = async (keyword) => {
+export const getListPostHaco = async ({ keyword, limit, category }) => {
+  console.log("category >>>> ", category);
   try {
     const res = await client.getListIncludingDraft(PostContent, "/posts", {
-      search: keyword,
+      search: _.isEmpty(keyword) ? null : keyword,
+      limit: limit,
+      q: _.isEmpty(category) ? null : `category[cont]:${category}`,
     });
-
     const resStringJson = JSON.stringify(res.data);
     return JSON.parse(resStringJson);
   } catch (error) {
@@ -65,7 +71,7 @@ export const getPostIds = async () => {
 
     const resStringJson = JSON.stringify(res.data);
     const paramIds = JSON.parse(resStringJson).map((post) => ({
-      params: { page: `${post.id}` },
+      params: { id: `${post.id}` },
     }));
 
     return paramIds;

@@ -1,0 +1,46 @@
+@import "./_colors.scss";
+
+.permaLinkContainer {
+  display: flex;
+
+  .permaLinkContentContainer {
+    display: flex;
+    border: 1px solid $blue11b5f5;
+    padding: 10px;
+
+    .permaLinkImageContainer {
+      width: 45%;
+      aspect-ratio: 16/9;
+
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        padding-right: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .permaLinkTitle {
+      width: 55%;
+      font-size: 12px;
+      font-weight: 400;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-height: 16px; /* fallback */
+      max-height: 32px; /* fallback */
+      -webkit-line-clamp: 2; /* number of lines to show */
+      -webkit-box-orient: vertical;
+    }
+  }
+}
+
+.preContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blue11b5f5;
+  color: white;
+}

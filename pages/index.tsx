@@ -28,6 +28,10 @@ function Home({
     router.push(`/search?keyword=${keyword}`);
   }
 
+  function redrectDetailPage(id: string) {
+    router.push(`/posts/${id}`);
+  }
+
   return (
     <Layout>
       <div className={styles.rootContainer}>
@@ -36,7 +40,10 @@ function Home({
             <div>
               {posts.map((post, index) => (
                 <div key={`post-${index}`}>
-                  <PostItemComponent post={post} />
+                  <PostItemComponent
+                    post={post}
+                    redrectDetail={redrectDetailPage}
+                  />
                 </div>
               ))}
             </div>

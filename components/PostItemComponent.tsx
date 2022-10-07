@@ -1,30 +1,53 @@
 import React from "react";
 import styles from "./styles/PostItem.module.scss";
 import { IPost } from "../models/Post";
+import _ from "lodash";
+import Link from "next/link";
+import { Formater } from "../utils/constants";
+import moment from "moment";
 
 type Props = {
   post: IPost;
+  redrectDetail: (id: string) => void;
 };
 
-const PostItemComponent: React.FC<Props> = ({ post }) => {
+const PostItemComponent = ({ post, redrectDetail }: Props) => {
   return (
     <div>
       <div className={styles.dateContainer}>
-        <div className={styles.dateStyle}>2022年07月26日</div>
+        <div className={styles.dateStyle}>
+          {moment(post.updatedAt).format(Formater.dateFormter)}
+        </div>
       </div>
-      <div className={styles.titlePost}>{post.title}</div>
+      <div className={styles.titlePost} onClick={() => redrectDetail(post.id)}>
+        {post.title}
+      </div>
       <div>
         <div className={styles.underlinePost}></div>
       </div>
-      <div className={styles.imageContainer}>
-        <img
-          src="https://yoor-blog.up.seesaa.net/image/E8B5A4E794B0E5A4AAE9838EE6A798E794BBE5838F.png"
-          alt=""
-        />
-      </div>
-      <div className={styles.contentPost}>{post.content}</div>
+      {_.isEmpty(post.urlImage) ? (
+        <div />
+      ) : (
+        <div className={styles.imageContainer}>
+          <img
+            src={post.urlImage}
+            alt=""
+            onClick={() => redrectDetail(post.id)}
+          />
+        </div>
+      )}
+      <div className={styles.contentPost}>{post.subContent}</div>
       <div className={styles.buttonContainer}>
-        <button className={styles.buttonStyle}>READ MORE</button>
+        <Link href={`/posts/${post.id}`}>
+          <a>
+            <button
+              className={styles.buttonStyle}
+              //onClick={() => redrectDetail(post.id)}
+            >
+              READ MORE
+            </button>
+          </a>
+        </Link>
       </div>
     </div>
   );
