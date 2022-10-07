@@ -7,14 +7,16 @@ import styles from "../styles/Home.module.scss";
 import Pagination from "@mui/material/Pagination";
 import { IPost } from "../models/Post";
 import { getListPost, PER_PAGE } from "../services/PostsService";
-import { ResponseListPost } from "../models/ResponseListPost";
+import { IPagination, ResponseListPost } from "../models/ResponseListPost";
 import SearchComponent from "../components/SearchComponent";
 import { useRouter } from "next/router";
 
-function Home({
-  posts,
-  pagination,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+type Props = {
+  posts: IPost[];
+  pagination: IPagination;
+};
+
+function Home({ posts, pagination }: Props) {
   const totalPages = Math.ceil(pagination.total / pagination.limit);
   const router = useRouter();
 
@@ -65,7 +67,7 @@ function Home({
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const response = await getListPost(PER_PAGE, 0);
   const resListPost: ResponseListPost = {
     pagination: response.meta,
