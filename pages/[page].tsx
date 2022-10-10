@@ -101,7 +101,10 @@ export const getStaticProps: GetStaticProps<Props, IParams> = async (
     };
   }
 
-  const response = await getListPost(PER_PAGE, PER_PAGE * (page - 1));
+  const response = await getListPost({
+    limit: PER_PAGE,
+    offset: PER_PAGE * (page - 1),
+  });
   const resListPost: ResponseListPost = {
     pagination: response.meta,
     listPost: response.data,
