@@ -10,8 +10,6 @@ type Props = {
 };
 
 const PostDetailInfo = ({ post }: Props) => {
-  // let content = _.replace(post.content, "<strong>", "<h4><strong>");
-  // content = _.replace(content, "</strong>", "</strong></h4>");
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
       if (
@@ -20,7 +18,6 @@ const PostDetailInfo = ({ post }: Props) => {
       ) {
         if (domNode.children[0] as DataNode) {
           const node = domNode.children[0] as DataNode;
-          console.log("dom data >>>>>> ", node.data);
           return <h5>{node.data}</h5>;
         }
       }

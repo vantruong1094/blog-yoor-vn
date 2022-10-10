@@ -2,50 +2,72 @@ import { Grid } from "@mui/material";
 import React from "react";
 import style from "./styles/PermaLinkComponent.module.scss";
 import Icon from "@mui/material/Icon";
+import { IPost } from "../models/Post";
+import Link from "next/link";
 
-function PermaLinkComponent() {
+type Props = {
+  permaPosts: IPost[];
+  hideLeftItem?: boolean;
+  hideRightItem?: boolean;
+};
+
+function PermaLinkComponent({
+  permaPosts,
+  hideLeftItem = false,
+  hideRightItem = false,
+}: Props) {
   function leftComponent() {
+    if (hideLeftItem) {
+      return null;
+    }
+
+    const post = permaPosts[0];
+
     return (
       <Grid item xs={6}>
-        <div className={style.permaLinkContainer}>
-          <div className={style.preContainer}>
-            <Icon>keyboard_arrow_left_icon</Icon>
-          </div>
-          <div className={style.permaLinkContentContainer}>
-            <div className={style.permaLinkImageContainer}>
-              <img
-                src="https://files.hacocms.com/65/media/86/2637/E6B0B8E381ADE3818DE38299E6A798E794BBE5838F.png"
-                alt=""
-              />
+        <Link href={`/posts/${post.id}`}>
+          <a>
+            <div className={style.permaLinkContainer}>
+              <div className={style.preContainer}>
+                <Icon>keyboard_arrow_left_icon</Icon>
+              </div>
+              <div className={style.permaLinkContentContainer}>
+                <div className={style.permaLinkImageContainer}>
+                  <img src={post.urlImage} alt="" />
+                </div>
+                <div className={style.permaLinkTitle}>{post.title}</div>
+              </div>
             </div>
-            <div className={style.permaLinkTitle}>
-              なんと、久しぶりに大吉ではないものを引き当ててしまいました
-            </div>
-          </div>
-        </div>
+          </a>
+        </Link>
       </Grid>
     );
   }
 
   function rightComponent() {
+    if (hideRightItem) {
+      return null;
+    }
+
+    const post = hideLeftItem ? permaPosts[0] : permaPosts[1];
+
     return (
       <Grid item xs={6}>
-        <div className={style.permaLinkContainer}>
-          <div className={style.permaLinkContentContainer}>
-            <div className={style.permaLinkImageContainer}>
-              <img
-                src="https://files.hacocms.com/65/media/86/2637/E6B0B8E381ADE3818DE38299E6A798E794BBE5838F.png"
-                alt=""
-              />
+        <Link href={`/posts/${post.id}`}>
+          <a>
+            <div className={style.permaLinkContainer}>
+              <div className={style.permaLinkContentContainer}>
+                <div className={style.permaLinkImageContainer}>
+                  <img src={post.urlImage} alt="" />
+                </div>
+                <div className={style.permaLinkTitle}>{post.title}</div>
+              </div>
+              <div className={style.preContainer}>
+                <Icon>keyboard_arrow_right_icon</Icon>
+              </div>
             </div>
-            <div className={style.permaLinkTitle}>
-              なんと、久しぶりに大吉ではないものを引き当ててしまいました
-            </div>
-          </div>
-          <div className={style.preContainer}>
-            <Icon>keyboard_arrow_right_icon</Icon>
-          </div>
-        </div>
+          </a>
+        </Link>
       </Grid>
     );
   }

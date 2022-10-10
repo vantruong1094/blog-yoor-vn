@@ -24,7 +24,6 @@ function SearchPage() {
       const posts: IPost[] = await getListPostHaco({
         keyword: keyword,
         limit: 1000,
-        category: null,
       });
       console.log("response >>> ", posts);
       setListPost(posts);

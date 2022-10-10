@@ -69,7 +69,7 @@ function Home({ posts, pagination }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const response = await getListPost(PER_PAGE, 0);
+  const response = await getListPost({ limit: PER_PAGE, offset: 0 });
   const resListPost: ResponseListPost = {
     pagination: response.meta,
     listPost: response.data,

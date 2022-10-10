@@ -1,7 +1,8 @@
-import { ApiContent, HacoCmsClient } from "hacocms-js-sdk";
+import { ApiContent, HacoCmsClient, JsonType } from "hacocms-js-sdk";
 import { ResponseListPost } from "../models/ResponseListPost";
 import axios from "axios";
 import _ from "lodash";
+import { IPost } from "../models/Post";
 
 const PROJECT_SUBDOMAIN = "truongcv-yoor";
 const PROJECT_ACCESS_TOKEN = "AnmFzheET4Zp5qJ6xjmxkWZh";
@@ -22,19 +23,30 @@ const instance = axios.create({
 });
 
 class PostContent extends ApiContent {
-  constructor(json) {
+  subContent: any;
+  title: string;
+  content: string;
+  urlImage: string;
+  category: string;
+
+  constructor(json: any) {
     super(json);
 
     this.subContent = json.subContent;
     this.title = json.title;
     this.content = json.content;
     this.urlImage = json.urlImage;
-    this.updatedAt = json.updatedAt;
     this.category = json.category;
   }
 }
 
-export const getListPost = async (limit, offset) => {
+export const getListPost = async ({
+  limit,
+  offset,
+}: {
+  limit: number;
+  offset: number;
+}) => {
   try {
     const res = await instance.get("/posts", {
       params: {
@@ -50,13 +62,18 @@ export const getListPost = async (limit, offset) => {
   }
 };
 
-export const getListPostHaco = async ({ keyword, limit, category }) => {
-  console.log("category >>>> ", category);
+export const getListPostHaco = async ({
+  keyword = "",
+  limit = 1000,
+  category = "",
+}: HacoProps) => {
+  console.log("category >>>> ", category, "keyword >>>>> ", keyword);
   try {
     const res = await client.getListIncludingDraft(PostContent, "/posts", {
-      search: _.isEmpty(keyword) ? null : keyword,
-      limit: limit,
-      q: _.isEmpty(category) ? null : `category[cont]:${category}`,
+      search: _.isEmpty(keyword) ? undefined : keyword,
+      limit: _.isEmpty(limit) ? 1000 : limit,
+      q: _.isEmpty(category) ? undefined : `category[cont]:${category}`,
+      s: "-updatedAt",
     });
     const resStringJson = JSON.stringify(res.data);
     return JSON.parse(resStringJson);
@@ -70,9 +87,12 @@ export const getPostIds = async () => {
     const res = await client.getListIncludingDraft(PostContent, "/posts");
 
     const resStringJson = JSON.stringify(res.data);
-    const paramIds = JSON.parse(resStringJson).map((post) => ({
+    const posts: IPost[] = JSON.parse(resStringJson);
+    const paramIds = posts.map((post) => ({
       params: { id: `${post.id}` },
     }));
+
+    console.log("getPostIds >>> ", paramIds);
 
     return paramIds;
   } catch (error) {
@@ -80,7 +100,7 @@ export const getPostIds = async () => {
   }
 };
 
-export const getPostById = async (id) => {
+export const getPostById = async (id: string) => {
   try {
     console.log(`postId >>>> ${id}`);
     const res = await client.getContent(PostContent, "/posts", id);
@@ -90,4 +110,10 @@ export const getPostById = async (id) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+type HacoProps = {
+  keyword?: string;
+  limit?: number;
+  category?: string;
 };
