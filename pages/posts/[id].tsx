@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import ListRelativePosts from "../../components/ListRelativePosts";
 import PermaLinkComponent from "../../components/PermaLinkComponent";
 import _ from "lodash";
+import SocialShareComponent from "../../components/SocialShareComponent";
 
 type Props = {
   post: IPost;
@@ -109,6 +110,9 @@ function PostDetailPage({ post, relativePosts }: Props) {
           <div className={styles.leftContainer}>
             <div>
               <PostDetailInfo post={post} />
+            </div>
+            <div>
+              <SocialShareComponent post={post} />
             </div>
             <div>
               <ListRelativePosts listPost={relativePosts} />
