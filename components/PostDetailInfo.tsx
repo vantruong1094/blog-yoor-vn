@@ -14,7 +14,10 @@ const PostDetailInfo = ({ post }: Props) => {
   // content = _.replace(content, "</strong>", "</strong></h4>");
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
-      if (domNode instanceof Element && domNode.name === "code") {
+      if (
+        domNode instanceof Element &&
+        (domNode.name === "code" || domNode.name === "pre")
+      ) {
         if (domNode.children[0] as DataNode) {
           const node = domNode.children[0] as DataNode;
           console.log("dom data >>>>>> ", node.data);
