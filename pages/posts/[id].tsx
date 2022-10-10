@@ -43,6 +43,7 @@ interface IParams extends ParsedUrlQuery {
 
 function PostDetailPage({ post, relativePosts }: Props) {
   const router = useRouter();
+
   const [permaLinkPosts, setPermaLinkPosts] = useState<PermaLinkProp>({
     posts: [],
     hideLeftItem: true,

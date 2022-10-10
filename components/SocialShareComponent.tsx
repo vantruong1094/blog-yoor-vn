@@ -16,19 +16,21 @@ type Props = {
 };
 
 function SocialShareComponent({ post }: Props) {
+  const urlShare = `${process.env.NEXT_PUBLIC_HOST}/${post.id}`;
+
   return (
     <div className={styles.shareContainer}>
-      <TwitterShareButton url={window.location.href} title={`${post.title}\n`}>
+      <TwitterShareButton url={urlShare} title={`${post.title}\n`}>
         <div className={styles.shareItemContainer}>
           <TwitterIcon size={24} round={false} />
         </div>
       </TwitterShareButton>
-      <FacebookShareButton url={window.location.href} title={`${post.title}\n`}>
+      <FacebookShareButton url={urlShare} title={`${post.title}\n`}>
         <div className={styles.shareItemContainer}>
           <FacebookIcon size={24} round={false} />
         </div>
       </FacebookShareButton>
-      <HatenaShareButton url={window.location.href} title={`${post.title}\n`}>
+      <HatenaShareButton url={urlShare} title={`${post.title}\n`}>
         <div className={styles.shareItemContainer}>
           <HatenaIcon size={24} round={false} />
         </div>
