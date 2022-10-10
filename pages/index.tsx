@@ -1,4 +1,4 @@
-import type { InferGetStaticPropsType, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../components/Layout";
@@ -10,6 +10,7 @@ import { getListPost, PER_PAGE } from "../services/PostsService";
 import { IPagination, ResponseListPost } from "../models/ResponseListPost";
 import SearchComponent from "../components/SearchComponent";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 type Props = {
   posts: IPost[];
@@ -67,7 +68,7 @@ function Home({ posts, pagination }: Props) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const response = await getListPost(PER_PAGE, 0);
   const resListPost: ResponseListPost = {
     pagination: response.meta,
@@ -79,6 +80,7 @@ export const getServerSideProps = async () => {
       posts: resListPost.listPost,
       pagination: resListPost.pagination,
     },
+    revalidate: 5,
   };
 };
 

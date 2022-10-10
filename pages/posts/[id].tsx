@@ -41,6 +41,10 @@ function PostDetailPage({ post, relativePosts }: Props) {
     router.push(`/search?keyword=${keyword}`);
   }
 
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout>
       <div className={styles.rootContainer}>
@@ -65,16 +69,16 @@ function PostDetailPage({ post, relativePosts }: Props) {
   );
 }
 
-// export const getStaticPaths = async () => {
-//   const paths = await getPostIds();
+export const getStaticPaths = async () => {
+  const paths = await getPostIds();
 
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
+  return {
+    paths,
+    fallback: true,
+  };
+};
 
-export const getServerSideProps: GetServerSideProps<Props, IParams> = async (
+export const getStaticProps: GetStaticProps<Props, IParams> = async (
   context
 ) => {
   const params = context.params as IParams;
@@ -94,6 +98,7 @@ export const getServerSideProps: GetServerSideProps<Props, IParams> = async (
       post,
       relativePosts: response[0],
     },
+    revalidate: 5,
   };
 };
 

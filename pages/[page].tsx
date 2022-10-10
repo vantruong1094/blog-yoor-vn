@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Layout from "../components/Layout";
@@ -81,7 +81,7 @@ function PageContent({ posts, pagination }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props, IParams> = async (
+export const getStaticProps: GetStaticProps<Props, IParams> = async (
   context
 ) => {
   const page = Number((context.params as IParams).page);
@@ -112,20 +112,21 @@ export const getServerSideProps: GetServerSideProps<Props, IParams> = async (
       posts: resListPost.listPost,
       pagination: resListPost.pagination,
     },
+    revalidate: 5,
   };
 };
 
-// export const getStaticPaths = async () => {
-//   const paths = Array.from({ length: 5 }).map((_, index) => ({
-//     params: {
-//       page: `${index + 1}`,
-//     },
-//   }));
-//   console.log("paths >>>>> ", paths);
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// };
+export const getStaticPaths = async () => {
+  const paths = Array.from({ length: 5 }).map((_, index) => ({
+    params: {
+      page: `${index + 1}`,
+    },
+  }));
+  console.log("paths >>>>> ", paths);
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
 
 export default PageContent;

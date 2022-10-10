@@ -41,7 +41,7 @@ const PostDetailInfo = ({ post }: Props) => {
           <img src={post.urlImage} alt="" />
         </div>
       )}
-      <div>{parse(post.content, options)}</div>
+      <div className={styles.contentPost}>{parse(post.content, options)}</div>
     </div>
   );
 };

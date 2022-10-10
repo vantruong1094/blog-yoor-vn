@@ -14,6 +14,7 @@
 
 .leftContainer {
   flex: 60%;
+  padding-bottom: 4rem;
 
   .paginationContainer {
     display: flex;
@@ -31,8 +32,4 @@
 
 .rightContainer {
   flex: 40%;
-}
-
-.MuiPagination-ul li {
-  background-color: red;
 }
