@@ -1,13 +1,14 @@
 .shareContainer {
   display: flex;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   padding: 2rem 0;
 }
 
 .shareItemContainer {
   background-color: #f1f1f1;
   padding: 10px;
+  border-radius: 2px;
 }
 
 .shareItemContainer:hover {

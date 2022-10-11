@@ -16,7 +16,7 @@ type Props = {
 };
 
 function SocialShareComponent({ post }: Props) {
-  const urlShare = `${process.env.NEXT_PUBLIC_HOST}/${post.id}`;
+  const urlShare = `${process.env.NEXT_PUBLIC_HOST}/posts/${post.id}`;
 
   return (
     <div className={styles.shareContainer}>

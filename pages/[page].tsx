@@ -46,34 +46,39 @@ function PageContent({ posts, pagination }: Props) {
   return (
     <Layout>
       <div className={styles.rootContainer}>
-        <div className={styles.container}>
-          <div className={styles.leftContainer}>
-            <div>
-              {posts.map((post, index) => (
-                <div key={`post-${index}`}>
-                  <PostItemComponent
-                    post={post}
-                    redrectDetail={redrectDetailPage}
+        <div className={styles.containerWrapper}>
+          <div className={styles.container}>
+            <div className={styles.leftContainer}>
+              <div>
+                {posts.map((post, index) => (
+                  <div key={`post-${index}`}>
+                    <PostItemComponent
+                      post={post}
+                      redrectDetail={redrectDetailPage}
+                    />
+                  </div>
+                ))}
+              </div>
+              {_.isEmpty(posts) ? (
+                <div />
+              ) : (
+                <div className={styles.paginationContainer}>
+                  <Pagination
+                    count={totalPages}
+                    defaultPage={currentPage}
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={(e, page) => handleChangePager(page)}
                   />
                 </div>
-              ))}
+              )}
             </div>
-            {_.isEmpty(posts) ? (
-              <div />
-            ) : (
-              <div className={styles.paginationContainer}>
-                <Pagination
-                  count={totalPages}
-                  defaultPage={currentPage}
-                  variant="outlined"
-                  shape="rounded"
-                  onChange={(e, page) => handleChangePager(page)}
-                />
-              </div>
-            )}
-          </div>
-          <div className={styles.rightContainer}>
-            <SearchComponent defaultKeyword="" doSearch={updateSearchKeyword} />
+            <div className={styles.rightContainer}>
+              <SearchComponent
+                defaultKeyword=""
+                doSearch={updateSearchKeyword}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -47,28 +47,30 @@ function SearchPage() {
   return (
     <Layout>
       <div className={styles.rootContainer}>
-        <div className={styles.container}>
-          <div className={styles.leftContainer}>
-            <div className={styles.resultSearchContainer}>
-              <span>&quot;{keyword}&quot;</span>
-              の検索結果を表示しています
+        <div className={styles.containerWrapper}>
+          <div className={styles.container}>
+            <div className={styles.leftContainer}>
+              <div className={styles.resultSearchContainer}>
+                <span>&quot;{keyword}&quot;</span>
+                の検索結果を表示しています
+              </div>
+              <div>
+                {listPost.map((post, index) => (
+                  <div key={`post-${index}`}>
+                    <PostItemComponent
+                      post={post}
+                      redrectDetail={redrectDetailPage}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
-              {listPost.map((post, index) => (
-                <div key={`post-${index}`}>
-                  <PostItemComponent
-                    post={post}
-                    redrectDetail={redrectDetailPage}
-                  />
-                </div>
-              ))}
+            <div className={styles.rightContainer}>
+              <SearchComponent
+                defaultKeyword={keyword}
+                doSearch={updateSearchKeyword}
+              />
             </div>
-          </div>
-          <div className={styles.rightContainer}>
-            <SearchComponent
-              defaultKeyword={keyword}
-              doSearch={updateSearchKeyword}
-            />
           </div>
         </div>
       </div>

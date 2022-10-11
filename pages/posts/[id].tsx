@@ -107,21 +107,26 @@ function PostDetailPage({ post, relativePosts }: Props) {
   return (
     <Layout>
       <div className={styles.rootContainer}>
-        <div className={styles.container}>
-          <div className={styles.leftContainer}>
-            <div>
-              <PostDetailInfo post={post} />
+        <div className={styles.containerWrapper}>
+          <div className={styles.container}>
+            <div className={styles.leftContainer}>
+              <div>
+                <PostDetailInfo post={post} />
+              </div>
+              <div>
+                <SocialShareComponent post={post} />
+              </div>
+              <div>
+                <ListRelativePosts listPost={relativePosts} />
+              </div>
+              <div>{renderPermaLinkPost()}</div>
             </div>
-            <div>
-              <SocialShareComponent post={post} />
+            <div className={styles.rightContainer}>
+              <SearchComponent
+                defaultKeyword=""
+                doSearch={updateSearchKeyword}
+              />
             </div>
-            <div>
-              <ListRelativePosts listPost={relativePosts} />
-            </div>
-            <div>{renderPermaLinkPost()}</div>
-          </div>
-          <div className={styles.rightContainer}>
-            <SearchComponent defaultKeyword="" doSearch={updateSearchKeyword} />
           </div>
         </div>
       </div>
