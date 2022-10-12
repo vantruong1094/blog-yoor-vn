@@ -2,6 +2,7 @@ import { Box, Grid } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { IPost } from "../models/Post";
+import ImageApp from "./ImageApp";
 import style from "./styles/ListRelativePosts.module.scss";
 
 type Props = {
@@ -14,8 +15,10 @@ function ListRelativePosts({ listPost }: Props) {
       <Grid item xs={3}>
         <Link href={`/posts/${post.id}`}>
           <a>
-            <div className={style.imageContainer}>
-              <img src={post.urlImage} alt="" />
+            <div>
+              <div className={style.imageContainer}>
+                <ImageApp src={post.urlImage} />
+              </div>
               <div className={style.titlePost}>{post.subContent}</div>
             </div>
           </a>

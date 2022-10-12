@@ -5,6 +5,7 @@ import _ from "lodash";
 import Link from "next/link";
 import { Formater } from "../utils/constants";
 import moment from "moment";
+import ImageApp from "./ImageApp";
 
 type Props = {
   post: IPost;
@@ -29,23 +30,18 @@ const PostItemComponent = ({ post, redrectDetail }: Props) => {
         <div />
       ) : (
         <div className={styles.imageContainer}>
-          <img
-            src={post.urlImage}
-            alt=""
-            onClick={() => redrectDetail(post.id)}
-          />
+          <Link href={`/posts/${post.id}`}>
+            <a>
+              <ImageApp src={post.urlImage} />
+            </a>
+          </Link>
         </div>
       )}
       <div className={styles.contentPost}>{post.subContent}</div>
       <div className={styles.buttonContainer}>
         <Link href={`/posts/${post.id}`}>
           <a>
-            <button
-              className={styles.buttonStyle}
-              //onClick={() => redrectDetail(post.id)}
-            >
-              READ MORE
-            </button>
+            <button className={styles.buttonStyle}>READ MORE</button>
           </a>
         </Link>
       </div>

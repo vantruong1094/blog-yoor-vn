@@ -4,6 +4,7 @@ import style from "./styles/PermaLinkComponent.module.scss";
 import Icon from "@mui/material/Icon";
 import { IPost } from "../models/Post";
 import Link from "next/link";
+import ImageApp from "./ImageApp";
 
 type Props = {
   permaPosts: IPost[];
@@ -33,7 +34,7 @@ function PermaLinkComponent({
               </div>
               <div className={style.permaLinkContentContainer}>
                 <div className={style.permaLinkImageContainer}>
-                  <img src={post.urlImage} alt="" />
+                  <ImageApp src={post.urlImage} />
                 </div>
                 <div className={style.permaLinkTitle}>{post.title}</div>
               </div>
@@ -58,7 +59,7 @@ function PermaLinkComponent({
             <div className={style.permaLinkContainer}>
               <div className={style.permaLinkContentContainer}>
                 <div className={style.permaLinkImageContainer}>
-                  <img src={post.urlImage} alt="" />
+                  <ImageApp src={post.urlImage} />
                 </div>
                 <div className={style.permaLinkTitle}>{post.title}</div>
               </div>
